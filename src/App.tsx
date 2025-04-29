@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Loader } from "@react-three/drei";
+import CanvasContainer from "./CanvasContainer";
+import Experience from "./Experience";
+import { SectionFive } from "./Sections/SectionFive";
+import { SectionFour } from "./Sections/SectionFour";
+import { SectionOne } from "./Sections/SectionOne";
+import { SectionThree } from "./Sections/SectionThree";
+import { SectionTwo } from "./Sections/SectionTwo";
+import Lenis from "@studio-freight/lenis";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { useProgress } from "@react-three/drei";
+import { Suspense } from "react";
+
+const LoadingScreen = () => {
+  const { progress, active } = useProgress();
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className={`loading-screen ${active ? "" : "loading-screen--hidden"}`}>
+      <div className="loading-screen__container">
+        <h1 className="loading-screen__title">ENEFIT GREEN RECREATION</h1>
+        <div className="progress__container">
+          <div
+            className="progress__bar"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
+};
+
+function App() {
+
+    const lenis = new Lenis({
+        duration: 2.2,
+        easing: t => Math.min(1, 1.001 - Math.pow(2, -5 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        mouseMultiplier: 1,
+      })
+      
+    function raf(time) {
+        lenis.raf(time)
+        requestAnimationFrame(raf)
+    }
+      
+    requestAnimationFrame(raf)
+
+    return (
+        <main className="main" >
+            <LoadingScreen />
+            <div  className="experience">
+                <Suspense>
+                <CanvasContainer />
+                </Suspense>
+            </div>
+
+            <SectionOne />
+            <SectionTwo />
+            <SectionThree />
+            <SectionFour />
+            <SectionFive />
+            
+        </main>
+    )
 }
 
-export default App
+export default App;
