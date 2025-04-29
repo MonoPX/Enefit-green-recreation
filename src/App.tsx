@@ -1,11 +1,11 @@
 import { Loader } from "@react-three/drei";
 import CanvasContainer from "./CanvasContainer";
 import Experience from "./Experience";
-import { SectionFive } from "./Sections/SectionFive";
-import { SectionFour } from "./Sections/SectionFour";
-import { SectionOne } from "./Sections/SectionOne";
-import { SectionThree } from "./Sections/SectionThree";
-import { SectionTwo } from "./Sections/SectionTwo";
+import { SectionFive } from "./Sections/Section5";
+import { SectionFour } from "./Sections/Section4";
+import { SectionOne } from "./Sections/Section1";
+import { SectionThree } from "./Sections/Section3";
+import { SectionTwo } from "./Sections/Section2";
 import Lenis from "@studio-freight/lenis";
 
 import { useProgress } from "@react-three/drei";
